@@ -12,6 +12,6 @@ py -m pip install pyinstaller
 # Build
 ```shell
 cd car
-pyinstaller main.py
-pyinstaller --onefile main.py
+pyinstaller -w main.py
+pyinstaller --onefile -w main.py
 ```
