@@ -2,7 +2,7 @@
 
 
 a = Analysis(
-    ['main.py'],
+    ['src/car/car.py'],
     pathex=[],
     binaries=[('lib64', '.')],
     datas=[],
@@ -10,7 +10,7 @@ a = Analysis(
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
-    excludes=[],
+    excludes=["libvips-42-a64e1348d8f8d46219492aea226fbd74.dll"],
     noarchive=False,
     optimize=0,
 )
@@ -21,7 +21,7 @@ exe = EXE(
     a.scripts,
     [],
     exclude_binaries=True,
-    name='main',
+    name='car',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
@@ -40,5 +40,5 @@ coll = COLLECT(
     strip=False,
     upx=True,
     upx_exclude=[],
-    name='main',
+    name='car',
 )

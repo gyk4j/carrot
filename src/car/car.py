@@ -2,6 +2,8 @@ import tkinter as tk
 import tkinter.filedialog as fd
 import pyvips
 
+root = tk.Tk()
+
 def thumbnail():
   input = fd.askopenfilename(title="Select Picture", filetypes=[("JPEG images", ('*.jpg')), ("All files", "*.*")]) 
   thumb = pyvips.Image.thumbnail(input, 128, height=128)
@@ -11,8 +13,6 @@ def close_window():
   root.destroy()
 
 def main():
-  root = tk.Tk()
-
   # place a frame
   frame = tk.Frame(root)
   frame.pack()
@@ -29,3 +29,7 @@ def main():
 
   # keep the window displaying
   root.mainloop()
+
+if __name__ == "__main__":
+  main()
+  
