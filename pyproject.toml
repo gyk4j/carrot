@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "car"
+version = "0.0.1"
+dependencies = [
+  "altgraph==0.17.4",
+  "build==1.2.2.post1",
+  "cffi==1.17.1",
+  "colorama==0.4.6",
+  "importlib-metadata==8.5.0",
+  "packaging==25.0",
+  "pefile==2023.2.7",
+  "pycparser==2.22",
+  "pyinstaller==6.13.0",
+  "pyinstaller-hooks-contrib==2025.4",
+  "pyproject-hooks==1.2.0",
+  "pyvips==3.0.0",
+  "pyvips-binary==8.16.1",
+  "pywin32-ctypes==0.2.3",
+  "tomli==2.2.1",
+  "zipp==3.20.2"
+]
+
+#[tool.setuptools.packages]
+#find = {}  # Scan the project directory with the default parameters
+
+[tool.setuptools.packages.find]
+# All the following settings are optional:
+where = ["src"]  # ["."] by default
+include = ["car"]  # ["*"] by default
+exclude = ["lib64"]  # empty by default
+namespaces = false  # true by default
+
+[project.scripts]
+cli-name = "car.car:main"
+
+[tool.setuptools]
+include-package-data = true
+# This is already the default behaviour if you are using
+# pyproject.toml to configure your build.
+# You can deactivate that with `include-package-data = false`
