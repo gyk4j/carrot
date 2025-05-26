@@ -15,6 +15,7 @@ tested if needed.
 ```shell
 py -m venv car
 .\car\Scripts\activate.bat
+pip install build
 pip install pyinstaller
 pip install "pyvips[binary]"
 
@@ -26,7 +27,17 @@ unzip -d %TEMP% vips-dev-w64-all-8.10.5.zip
 copy %TEMP%\vips-dev-8.10\bin\*.dll .\car\lib64\
 ```
 
-## Build/Package
+## Build Python Wheel Package
+```shell
+py -m build
+```
+
+Check that files are produced:
+
+1. `dist\car-x.x.x.tar.gz`
+2. `car-x.x.x-py3-none-any.whl`
+
+## Build PyInstaller Package 
 ```shell
 cd car
 #pyinstaller -w main.py
@@ -34,6 +45,11 @@ cd car
 #pyinstaller -w --add-binary="lib64:." --add-data="test.jpg:." main.py
 pyinstaller main.spec
 ```
+
+Check that one of the files are produced:
+
+1. `dist\car\car.exe`
+2. `dist\car.exe`
 
 ## Run
 ```shell
