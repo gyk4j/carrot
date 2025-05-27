@@ -13,18 +13,19 @@ tested if needed.
 ## Setup
 
 ```shell
-py -m venv car
-.\car\Scripts\activate.bat
+py -m venv .venv
+.venv\Scripts\activate.bat
 pip install build
 pip install pyinstaller
-pip install "pyvips[binary]"
+pip install pyvips
 
 # Download/copy pre-compiled DLLs for libvips
 mkdir .\car\lib64
-copy car\venv\Lib\site-packages\libvips-42-a64e1348d8f8d46219492aea226fbd74.dll lib64\libvips-42.dll
+#copy car\venv\Lib\site-packages\libvips-42-a64e1348d8f8d46219492aea226fbd74.dll lib64\libvips-42.dll
 curl -O https://github.com/libvips/libvips/releases/download/v8.10.5/vips-dev-w64-all-8.10.5.zip
 unzip -d %TEMP% vips-dev-w64-all-8.10.5.zip
-copy %TEMP%\vips-dev-8.10\bin\*.dll .\car\lib64\
+mkdir .\car\lib64\libvips
+copy %TEMP%\vips-dev-8.10\bin\*.dll .\car\lib64\libvips
 ```
 
 ## Build Python Wheel Package
@@ -51,8 +52,19 @@ Check that one of the files are produced:
 1. `dist\car\car.exe`
 2. `dist\car.exe`
 
-## Run
+## Cleanup
+
+Exit from the virtual environment.
+
 ```shell
-.\dist\main\main.exe
-.\dist\main.exe
+.venv\Scripts\deactivate.bat
+```
+
+## Run
+
+Start the 
+
+```shell
+.\dist\car\car.exe
+.\dist\car.exe
 ```

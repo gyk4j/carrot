@@ -4,13 +4,13 @@
 a = Analysis(
     ['src/car/car.py'],
     pathex=[],
-    binaries=[('lib64', '.')],
+    binaries=[("lib64/libvips", ".")],
     datas=[],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
-    excludes=["libvips-42-a64e1348d8f8d46219492aea226fbd74.dll"],
+    excludes=[],
     noarchive=False,
     optimize=0,
 )
