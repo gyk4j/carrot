@@ -18,11 +18,12 @@ dependencies = [
   "pyinstaller-hooks-contrib==2025.4",
   "pyproject-hooks==1.2.0",
   "pyvips==3.0.0",
-  "pyvips-binary==8.16.1",
   "pywin32-ctypes==0.2.3",
   "tomli==2.2.1",
   "zipp==3.20.2"
 ]
+
+#  "pyvips-binary==8.16.1",
 
 #[tool.setuptools.packages]
 #find = {}  # Scan the project directory with the default parameters
