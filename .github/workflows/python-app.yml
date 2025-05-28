@@ -5,8 +5,8 @@ name: Python build
 
 on:
   workflow_dispatch:
-  push:
-    branches: [ "main" ]
+# push:
+#   branches: [ "main" ]
 # pull_request:
 #   branches: [ "main" ]
 
@@ -38,11 +38,8 @@ jobs:
       #continue-on-error: true
       working-directory: ${{ runner.temp }}
       run: |
-        curl -O https://github.com/libvips/libvips/releases/download/v8.10.5/vips-dev-w64-all-8.10.5.zip
+        curl -sSL -O https://github.com/libvips/libvips/releases/download/v8.10.5/vips-dev-w64-all-8.10.5.zip
         pwd
-        ls -l
-        echo "Hello from $RUNNER_TEMP" > file.txt
-        cat file.txt
         ls -l
     - uses: actions/checkout@v4
     - name: Set up Python 3.8
