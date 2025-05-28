@@ -1,3 +1,5 @@
+[![Python build](https://github.com/gyk4j/car/actions/workflows/python-app.yml/badge.svg)](https://github.com/gyk4j/car/actions/workflows/python-app.yml)
+
 # car
 
 *Crop And Resize* is a Python script to crop and resize JPEG photos using the 
