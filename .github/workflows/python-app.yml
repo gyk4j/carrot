@@ -49,7 +49,7 @@ jobs:
     - name: Install dependencies
       run: |
         py -m pip install --upgrade pip
-        pip install flake8 pytest build setuptools pyinstaller
+        pip install flake8 pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 #    - name: Lint with flake8
 #      run: |
@@ -64,12 +64,15 @@ jobs:
     - name: Extract libvips
       working-directory: ${{ runner.temp }}
       run: |
-        unzip vips-dev-w64-all-8.10.5.zip
+        unzip -qq vips-dev-w64-all-8.10.5.zip
         mkdir -p $WORKSPACE/lib64/libvips
         mv vips-dev-8.10/bin/*.dll $WORKSPACE/lib64/libvips/
 
     - name: Build Python Package
-      run: py -m build
+      run: |
+        pip install build
+        pip install setuptools
+        py -m build
 
     - name: Upload Package Artifact
       uses: actions/upload-artifact@v4
@@ -80,7 +83,9 @@ jobs:
         retention-days: 1
           
     - name: Build PyInstaller Package
-      run: pyinstaller car.spec
+      run: |
+        pip install pyinstaller
+        pyinstaller car.spec
 
     - name: Upload PyInstaller Artifact
       uses: actions/upload-artifact@v4
