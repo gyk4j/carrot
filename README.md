@@ -37,16 +37,18 @@ py -m build
 
 Check that files are produced:
 
-1. `dist\car-x.x.x.tar.gz`
-2. `car-x.x.x-py3-none-any.whl`
+1. `dist\car-0.0.1.tar.gz`
+2. `dist\car-0.0.1-py3-none-any.whl`
 
 ## Build PyInstaller Package 
 ```shell
 cd car
-#pyinstaller -w main.py
-#pyinstaller --onefile -w main.py
-#pyinstaller -w --add-binary="lib64:." --add-data="test.jpg:." main.py
-pyinstaller main.spec
+#cd src/car
+#pyinstaller -w car.py
+#pyinstaller --onefile -w car.py
+#pyinstaller -w --add-binary="lib64:." --add-data="*.jpg:." car.py
+#cd ../..
+pyinstaller car.spec
 ```
 
 Check that one of the files are produced:
