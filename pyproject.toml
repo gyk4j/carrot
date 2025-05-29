@@ -3,7 +3,7 @@ requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "car"
+name = "carrot"
 version = "0.0.1"
 dependencies = [
   "altgraph==0.17.4",
@@ -31,12 +31,12 @@ dependencies = [
 [tool.setuptools.packages.find]
 # All the following settings are optional:
 where = ["src"]  # ["."] by default
-include = ["car"]  # ["*"] by default
+include = ["carrot"]  # ["*"] by default
 exclude = ["lib64"]  # empty by default
 namespaces = false  # true by default
 
 [project.scripts]
-cli-name = "car.car:main"
+cli-name = "carrot.carrot:main"
 
 [tool.setuptools]
 include-package-data = true

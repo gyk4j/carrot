@@ -70,7 +70,7 @@ jobs:
     - name: Upload Package Artifact
       uses: actions/upload-artifact@v4
       with:
-        name: car-whl-${{ github.ref_name }}
+        name: carrot-whl-${{ github.sha }}
         path: dist/
         if-no-files-found: error
         retention-days: 1
@@ -84,13 +84,13 @@ jobs:
           
     - name: Build PyInstaller Package
       run: |
-        pyinstaller car.spec
+        pyinstaller carrot.spec
 
     - name: Upload PyInstaller Artifact
       uses: actions/upload-artifact@v4
       with:
-        name: car-bin-${{ runner.os }}-${{ runner.arch }}-${{ github.ref_name }}
-        path: dist/car/
+        name: carrot-bin-${{ runner.os }}-${{ runner.arch }}-${{ github.sha }}
+        path: dist/carrot/
         if-no-files-found: error
         retention-days: 1
         
