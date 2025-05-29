@@ -5,10 +5,10 @@ name: Python build
 
 on:
   workflow_dispatch:
-# push:
-#   branches: [ "main" ]
-# pull_request:
-#   branches: [ "main" ]
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 permissions:
   contents: read
@@ -39,8 +39,6 @@ jobs:
       working-directory: ${{ runner.temp }}
       run: |
         curl -sSL -O https://github.com/libvips/libvips/releases/download/v8.10.5/vips-dev-w64-all-8.10.5.zip
-        pwd
-        ls -l
     - uses: actions/checkout@v4
     - name: Set up Python 3.8
       uses: actions/setup-python@v3
@@ -49,7 +47,7 @@ jobs:
     - name: Install dependencies
       run: |
         py -3.8 -m pip install --upgrade pip
-        pip install flake8 pytest
+        pip install flake8 pytest build setuptools pyinstaller
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 #    - name: Lint with flake8
 #      run: |
@@ -61,18 +59,10 @@ jobs:
 #      run: |
 #        pytest
 
-    - name: Extract libvips
-      working-directory: ${{ runner.temp }}
-      run: |
-        unzip -qq vips-dev-w64-all-8.10.5.zip
-        mkdir -p ${{ github.workspace }}/lib64/libvips
-        mv vips-dev-8.10/bin/*.dll ${{ github.workspace }}/lib64/libvips/
-
     - name: Build Python Package
       run: |
-        pip install build
-        pip install setuptools
         py -3.8 -m build
+        ls -R "$GITHUB_WORKSPACE/dist/"
 
     - name: Upload Package Artifact
       uses: actions/upload-artifact@v4
@@ -81,11 +71,20 @@ jobs:
         path: dist/
         if-no-files-found: error
         retention-days: 1
+        
+    - name: Extract libvips
+      working-directory: ${{ runner.temp }}
+      run: |
+        unzip -qq vips-dev-w64-all-8.10.5.zip
+        mkdir -p "$GITHUB_WORKSPACE/lib64/libvips"
+        mv vips-dev-8.10/bin/*.dll "$GITHUB_WORKSPACE/lib64/libvips/"
+        ls -R "$GITHUB_WORKSPACE/lib64/libvips/"
           
     - name: Build PyInstaller Package
       run: |
-        pip install pyinstaller
+        ls -R "$GITHUB_WORKSPACE/lib64/libvips/"
         pyinstaller car.spec
+        ls -R "$GITHUB_WORKSPACE/dist/"
 
     - name: Upload PyInstaller Artifact
       uses: actions/upload-artifact@v4
