@@ -18,6 +18,10 @@ jobs:
 
     runs-on: windows-latest
     
+    env:
+      PYTHON_VERSION: 3.8
+      VIPS_VERSION: 8.10.5
+    
     defaults:
       run:
         shell: bash
@@ -30,7 +34,7 @@ jobs:
         cache-name: cache-libvips
       with:
         path: |
-          $RUNNER_TEMP/vips-dev-w64-all-8.10.5.zip
+          ${{ runner.temp }}/vips-dev-w64-all-${{ env.VIPS_VERSION }}.zip
         key: ${{ runner.os }}-build-${{ env.cache-name }}
 
     - if: ${{ steps.cache-libvips.outputs.cache-hit != 'true' }}    
@@ -38,15 +42,15 @@ jobs:
       #continue-on-error: true
       working-directory: ${{ runner.temp }}
       run: |
-        curl -sSL -O https://github.com/libvips/libvips/releases/download/v8.10.5/vips-dev-w64-all-8.10.5.zip
+        curl -sSL -O https://github.com/libvips/libvips/releases/download/v$VIPS_VERSION/vips-dev-w64-all-$VIPS_VERSION.zip
     - uses: actions/checkout@v4
     - name: Set up Python 3.8
       uses: actions/setup-python@v3
       with:
-        python-version: "3.8"
+        python-version: ${{ env.PYTHON_VERSION }}
     - name: Install dependencies
       run: |
-        py -3.8 -m pip install --upgrade pip
+        py -$PYTHON_VERSION -m pip install --upgrade pip
         pip install flake8 pytest build setuptools pyinstaller
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 #    - name: Lint with flake8
@@ -61,13 +65,12 @@ jobs:
 
     - name: Build Python Package
       run: |
-        py -3.8 -m build
-        ls -R "$GITHUB_WORKSPACE/dist/"
+        py -$PYTHON_VERSION -m build
 
     - name: Upload Package Artifact
       uses: actions/upload-artifact@v4
       with:
-        name: car-whl
+        name: car-whl-${{ github.ref_name }}
         path: dist/
         if-no-files-found: error
         retention-days: 1
@@ -75,21 +78,18 @@ jobs:
     - name: Extract libvips
       working-directory: ${{ runner.temp }}
       run: |
-        unzip -qq vips-dev-w64-all-8.10.5.zip
+        unzip -qq vips-dev-w64-all-$VIPS_VERSION.zip
         mkdir -p "$GITHUB_WORKSPACE/lib64/libvips"
         mv vips-dev-8.10/bin/*.dll "$GITHUB_WORKSPACE/lib64/libvips/"
-        ls -R "$GITHUB_WORKSPACE/lib64/libvips/"
           
     - name: Build PyInstaller Package
       run: |
-        ls -R "$GITHUB_WORKSPACE/lib64/libvips/"
         pyinstaller car.spec
-        ls -R "$GITHUB_WORKSPACE/dist/"
 
     - name: Upload PyInstaller Artifact
       uses: actions/upload-artifact@v4
       with:
-        name: car-bin
+        name: car-bin-${{ runner.os }}-${{ runner.arch }}-${{ github.ref_name }}
         path: dist/car/
         if-no-files-found: error
         retention-days: 1
