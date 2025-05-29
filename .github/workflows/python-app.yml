@@ -65,8 +65,8 @@ jobs:
       working-directory: ${{ runner.temp }}
       run: |
         unzip -qq vips-dev-w64-all-8.10.5.zip
-        mkdir -p $WORKSPACE/lib64/libvips
-        mv vips-dev-8.10/bin/*.dll $WORKSPACE/lib64/libvips/
+        mkdir -p ${{ github.workspace }}/lib64/libvips
+        mv vips-dev-8.10/bin/*.dll ${{ github.workspace }}/lib64/libvips/
 
     - name: Build Python Package
       run: |
