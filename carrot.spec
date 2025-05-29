@@ -2,7 +2,7 @@
 
 
 a = Analysis(
-    ['src/car/car.py'],
+    ['src/carrot/carrot.py'],
     pathex=[],
     binaries=[("lib64/libvips", ".")],
     datas=[],
@@ -21,7 +21,7 @@ exe = EXE(
     a.scripts,
     [],
     exclude_binaries=True,
-    name='car',
+    name='carrot',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
@@ -40,5 +40,5 @@ coll = COLLECT(
     strip=False,
     upx=True,
     upx_exclude=[],
-    name='car',
+    name='carrot',
 )
