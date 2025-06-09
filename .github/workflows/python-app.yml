@@ -19,6 +19,7 @@ jobs:
     runs-on: windows-latest
     
     env:
+      PROJECT_NAME: ${{ github.event.repository.name }}
       PYTHON_VERSION: 3.8
       VIPS_VERSION: 8.10.5
     
@@ -70,7 +71,7 @@ jobs:
     - name: Upload Package Artifact
       uses: actions/upload-artifact@v4
       with:
-        name: carrot-whl-${{ github.sha }}
+        name: ${{ env.PROJECT_NAME }}-whl-${{ github.sha }}
         path: dist/
         if-no-files-found: error
         retention-days: 1
@@ -84,13 +85,13 @@ jobs:
           
     - name: Build PyInstaller Package
       run: |
-        pyinstaller carrot.spec
+        pyinstaller ${{ env.PROJECT_NAME }}.spec
 
     - name: Upload PyInstaller Artifact
       uses: actions/upload-artifact@v4
       with:
-        name: carrot-bin-${{ runner.os }}-${{ runner.arch }}-${{ github.sha }}
-        path: dist/carrot/
+        name: ${{ env.PROJECT_NAME }}-bin-${{ runner.os }}-${{ runner.arch }}-${{ github.sha }}
+        path: dist/${{ env.PROJECT_NAME }}/
         if-no-files-found: error
         retention-days: 1
         
