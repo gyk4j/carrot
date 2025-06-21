@@ -5,12 +5,16 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "carrot"
 version = "0.0.1"
+description = "Crop, Resize and Rotate"
 dependencies = [
   "altgraph==0.17.4",
   "build==1.2.2.post1",
   "cffi==1.17.1",
   "colorama==0.4.6",
+  "cx-Freeze==7.2.10",
+  "cx-Logging==3.2.0",
   "importlib-metadata==8.5.0",
+  "lief==0.16.3",
   "packaging==25.0",
   "pefile==2023.2.7",
   "pycparser==2.22",
@@ -20,10 +24,9 @@ dependencies = [
   "pyvips==3.0.0",
   "pywin32-ctypes==0.2.3",
   "tomli==2.2.1",
+  "typing-extensions==4.13.2",
   "zipp==3.20.2"
 ]
-
-#  "pyvips-binary==8.16.1",
 
 #[tool.setuptools.packages]
 #find = {}  # Scan the project directory with the default parameters
@@ -43,3 +46,16 @@ include-package-data = true
 # This is already the default behaviour if you are using
 # pyproject.toml to configure your build.
 # You can deactivate that with `include-package-data = false`
+
+[tool.cxfreeze]
+executables = [
+    {script = "src/carrot/carrot.py", base = "gui"}
+]
+
+[tool.cxfreeze.build_exe]
+excludes = ["unittest"]
+includes = ["pyvips"]
+include_files = [
+  "lib64/libvips"
+]
+zip_include_packages = ["tkinter"]

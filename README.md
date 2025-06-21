@@ -56,6 +56,15 @@ Check that one of the files are produced:
 1. `dist\carrot\carrot.exe`
 2. `dist\carrot.exe`
 
+## Build cx_Freeze Package
+```shell
+cd carrot
+# py setup.py build
+# cxfreeze --script=src\carrot\carrot.py --base=gui
+# py setup.py build_exe ...
+cxfreeze build
+```
+
 ## Cleanup
 
 Exit from the virtual environment.
