@@ -20,6 +20,7 @@ py -m venv .venv
 pip install build
 pip install pyinstaller
 pip install pyvips
+pip install cx_Freeze==6.15.16
 
 # Download/copy pre-compiled DLLs for libvips
 mkdir .\carrot\lib64
@@ -62,8 +63,13 @@ cd carrot
 # py setup.py build
 # cxfreeze --script=src\carrot\carrot.py --base=gui
 # py setup.py build_exe ...
-cxfreeze build
+# cxfreeze build
+py -m setup build
 ```
+
+Check that one of the files are produced:
+
+1. `build\exe.win-amd64-3.8\carrot.exe`
 
 ## Cleanup
 

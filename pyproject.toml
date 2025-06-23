@@ -11,7 +11,7 @@ dependencies = [
   "build==1.2.2.post1",
   "cffi==1.17.1",
   "colorama==0.4.6",
-  "cx-Freeze==7.2.10",
+  "cx-Freeze==6.15.16",
   "cx-Logging==3.2.0",
   "importlib-metadata==8.5.0",
   "lief==0.16.3",
@@ -56,6 +56,15 @@ executables = [
 excludes = ["unittest"]
 includes = ["pyvips"]
 include_files = [
-  "lib64/libvips"
+    "lib64/libvips/libglib-2.0-0.dll",
+    "lib64/libvips/libgobject-2.0-0.dll",
+    "lib64/libvips/libvips-42.dll",
+    "lib64/libvips/libvips-cpp-42.dll",
 ]
-zip_include_packages = ["tkinter"]
+#bin_path_includes = ["lib64/libvips"]
+#bin_includes = [
+#   "libglib-2.0-0.dll",
+#   "libgobject-2.0-0.dll",
+#   "libvips-42.dll",
+#   "libvips-cpp-42.dll",
+#]
