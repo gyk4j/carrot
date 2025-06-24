@@ -2,10 +2,8 @@ import sys
 import shlex
 
 #from model.model import Model
-from view.view import Window
-from view.view import MenuBar
-from view.view import MenuFile
-from view.view import MenuHelp
+from view.window import Window
+
 #from controller.controller import Controller
 
 class App:

@@ -2,7 +2,10 @@
 # __all__ = ["Window"]
 
 # Import the submodules
-from .view import Window
-from .view import MenuBar
-from .view import MenuFile
-from .view import MenuHelp
+from .window import Window
+from .menubar import MenuBar
+from .menu import Menu
+from .menuitem import MenuItem
+from .toolbar import ToolBar
+from .toolbarbutton import ToolBarButton
+from .tooltip import Tooltip
