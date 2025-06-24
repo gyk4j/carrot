@@ -3,6 +3,7 @@ from tkinter import messagebox
 
 from .menubar import MenuBar
 from .toolbar import ToolBar
+from .statusbar import StatusBar
 
 class Window:
 
@@ -16,6 +17,9 @@ class Window:
         
         # Add tool bar
         self.toolbar = ToolBar(self.window)
+        
+        # Add status bar
+        self.statusbar = StatusBar(self.window)
     
     def show(self):
         # Center the window
@@ -28,7 +32,7 @@ class Window:
         screen_height = self.window.winfo_screenheight()
         
         x = (screen_width - width) // 2
-        y = (screen_height - height) // 2
+        y = (screen_height - height) // 2 - 48
         self.window.geometry(f"{width}x{height}+{x}+{y}")
         
         self.window.mainloop()

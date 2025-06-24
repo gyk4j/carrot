@@ -9,3 +9,5 @@ from .menuitem import MenuItem
 from .toolbar import ToolBar
 from .toolbarbutton import ToolBarButton
 from .tooltip import Tooltip
+from .statusbar import StatusBar
+from .statusbarpane import StatusBarPane
