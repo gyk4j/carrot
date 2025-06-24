@@ -1,5 +1,6 @@
 # Define the __all__ variable
-__all__ = ["carrot"]
+__all__ = ["carrot", "app"]
 
 # Import the submodules
-from . import carrot
+import carrot
+import app
