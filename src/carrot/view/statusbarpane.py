@@ -9,6 +9,7 @@ class StatusBarPane:
             self.statusbar,
             text='',
             justify=tk.LEFT,
+            anchor=tk.W,
             relief=tk.SUNKEN,
             borderwidth = 1,
             padx = 4,
@@ -16,7 +17,7 @@ class StatusBarPane:
         )
         
         if fill is True:
-            self.statusbarpane.pack(side=tk.LEFT, padx=1, pady=1, expand=True, fill=tk.X, anchor='w')
+            self.statusbarpane.pack(side=tk.LEFT, padx=1, pady=1, expand=True, fill=tk.X)
         else:
             self.statusbarpane.pack(side=tk.LEFT, padx=1, pady=1)
     
