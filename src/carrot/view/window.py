@@ -3,6 +3,7 @@ from tkinter import messagebox
 
 from .menubar import MenuBar
 from .toolbar import ToolBar
+from .imageview import ImageView
 from .statusbar import StatusBar
 
 class Window:
@@ -11,12 +12,16 @@ class Window:
         self.window = tk.Tk()
         self.window.title(title)
         self.window.geometry("%dx%d" % (1024, 640))
+        self.window.config(bg="black")
         
         # Add menu bar
         self.menubar = MenuBar(self.window)
         
         # Add tool bar
         self.toolbar = ToolBar(self.window)
+
+        # Add image view
+        self.imageview = ImageView(self.window)
         
         # Add status bar
         self.statusbar = StatusBar(self.window)
