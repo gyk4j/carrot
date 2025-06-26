@@ -1,6 +1,7 @@
 import tkinter as tk
 
 from .toolbarbutton import ToolBarButton
+from .toolbarseparator import ToolBarSeparator
 
 class ToolBar:
 
@@ -14,3 +15,6 @@ class ToolBar:
         self.file_save = ToolBarButton(self.toolbar, "Save", "res/ico/file_save.png")
         self.file_saveas = ToolBarButton(self.toolbar, "Save as", "res/ico/file_saveas.png")
         self.file_exit = ToolBarButton(self.toolbar, "Exit", "res/ico/file_exit.png")
+        self.separator = ToolBarSeparator(self.toolbar)
+        self.go_back = ToolBarButton(self.toolbar, "Go Back", "res/ico/go_back.png")
+        self.go_forward = ToolBarButton(self.toolbar, "Go Forward", "res/ico/go_forward.png")
