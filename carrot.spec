@@ -2,7 +2,22 @@
 
 
 a = Analysis(
-    ['src/carrot/carrot.py'],
+    [
+        'src/carrot/app.py',
+        'src/carrot/controller/controller.py',
+        'src/carrot/model/model.py',
+        'src/carrot/view/imageview.py',
+        'src/carrot/view/menu.py',
+        'src/carrot/view/menubar.py',
+        'src/carrot/view/menuitem.py',
+        'src/carrot/view/statusbar.py',
+        'src/carrot/view/statusbarpane.py',
+        'src/carrot/view/toolbar.py',
+        'src/carrot/view/toolbarbutton.py',
+        'src/carrot/view/tooltip.py',
+        'src/carrot/view/view.py',
+        'src/carrot/view/window.py',
+    ],
     pathex=[],
     binaries=[("lib64/libvips", ".")],
     datas=[],
@@ -22,7 +37,7 @@ exe = EXE(
     [],
     exclude_binaries=True,
     name='carrot',
-    debug=False,
+    debug=True,
     bootloader_ignore_signals=False,
     strip=False,
     upx=True,
