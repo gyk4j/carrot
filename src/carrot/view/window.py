@@ -31,13 +31,14 @@ class Window:
         # https://www.geeksforgeeks.org/python/how-to-center-a-window-on-the-screen-in-tkinter/
         self.window.update_idletasks()
         
-        width = self.window.winfo_width()
-        height = self.window.winfo_height()
+        self.width = self.window.winfo_width()
+        self.height = self.window.winfo_height()
         screen_width = self.window.winfo_screenwidth()
         screen_height = self.window.winfo_screenheight()
         
-        x = (screen_width - width) // 2
-        y = (screen_height - height) // 2 - 48
-        self.window.geometry(f"{width}x{height}+{x}+{y}")
+        x = (screen_width - self.width) // 2
+        y = (screen_height - self.height) // 2 - 48
+        self.window.geometry(f"{self.width}x{self.height}+{x}+{y}")
         
         self.window.mainloop()
+
