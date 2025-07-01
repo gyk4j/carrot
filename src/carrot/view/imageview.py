@@ -40,7 +40,10 @@ class ImageView:
         aspect_ratio_v = self.c_height / i_height
         print("Aspect ratio (w): %f" % (aspect_ratio_h))
         print("Aspect ratio (h): %f" % (aspect_ratio_v))
-        aspect_ratio = min( aspect_ratio_h, aspect_ratio_v )
+
+        # Do not stretch a small image i.e. aspect ratio > 1 and use 1 as a fallback.
+        # Otherwise, shrink a larger image proportionately to fit the canvas i.e. aspect ratio < 1.
+        aspect_ratio = min( 1, aspect_ratio_h, aspect_ratio_v )
 
         resized_width = int(i_width * aspect_ratio)
         resized_height = int(i_height * aspect_ratio)
