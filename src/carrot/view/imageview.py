@@ -12,7 +12,14 @@ class ImageView:
         self.img_id = -1
 
         # Set initial size to 640x480.
-        self.imageview = tk.Canvas(window, bg='gray', width= 640, height= 480)
+        self.imageview = tk.Canvas(
+            window, 
+            bg='gray', 
+            width= 640, 
+            height= 480, 
+            relief=tk.SUNKEN,
+            borderwidth = 1,
+        )
         self.imageview.pack(expand=True, fill=tk.BOTH)
         self.imageview.update()
         self.load_image()
