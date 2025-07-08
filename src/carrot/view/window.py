@@ -9,36 +9,40 @@ from .statusbar import StatusBar
 class Window:
 
     def __init__(self, title):
-        self.window = tk.Tk()
-        self.window.title(title)
-        self.window.geometry("%dx%d" % (1024, 640))
-        self.window.config(bg="black")
+        self._window = tk.Tk()
+        self._window.title(title)
+        self._window.geometry("%dx%d" % (1024, 640))
+        self._window.config(bg="black")
         
         # Add menu bar
-        self.menubar = MenuBar(self.window)
+        self._menubar = MenuBar(self.window)
         
         # Add tool bar
-        self.toolbar = ToolBar(self.window)
+        self._toolbar = ToolBar(self.window)
 
         # Add image view
-        self.imageview = ImageView(self.window)
+        self._imageview = ImageView(self.window)
         
         # Add status bar
-        self.statusbar = StatusBar(self.window)
-    
+        self._statusbar = StatusBar(self.window)
+
+    @property
+    def window(self) -> tk.Tk:
+        return self._window
+
     def show(self):
         # Center the window
         # https://www.geeksforgeeks.org/python/how-to-center-a-window-on-the-screen-in-tkinter/
-        self.window.update_idletasks()
+        self._window.update_idletasks()
         
-        self.width = self.window.winfo_width()
-        self.height = self.window.winfo_height()
-        screen_width = self.window.winfo_screenwidth()
-        screen_height = self.window.winfo_screenheight()
+        window_width = self._window.winfo_width()
+        window_height = self._window.winfo_height()
+        screen_width = self._window.winfo_screenwidth()
+        screen_height = self._window.winfo_screenheight()
         
-        x = (screen_width - self.width) // 2
-        y = (screen_height - self.height) // 2 - 48
-        self.window.geometry(f"{self.width}x{self.height}+{x}+{y}")
+        x = (screen_width - window_width) // 2
+        y = (screen_height - window_height) // 2 - 48
+        self._window.geometry(f"{window_width}x{window_height}+{x}+{y}")
         
         self.window.mainloop()
 
