@@ -3,13 +3,14 @@ import shlex
 
 from view.window import Window
 from model.state import State
-#from controller.controller import Controller
+from controller.controller import Controller
 
 class App:
 
     def __init__(self):
         self._window = Window(shlex.join(sys.argv))
         self._state = State(self._window.window)
+        self._controller = Controller(self._window, self._state)
     
     def run(self) -> int:
         self._window.show()
