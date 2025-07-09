@@ -68,5 +68,6 @@ class ToolBarButton:
     @onclick.setter
     def onclick(self, value: Callable):
         self._onclick = value
+        self._button.configure(command=self._onclick)
         
     
