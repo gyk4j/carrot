@@ -8,10 +8,13 @@ from .statusbar import StatusBar
 
 class Window:
 
+    DEFAULT_WIDTH = 1024
+    DEFAULT_HEIGHT = 640
+
     def __init__(self, title):
         self._window = tk.Tk()
         self._window.title(title)
-        self._window.geometry("%dx%d" % (1024, 640))
+        self._window.geometry("%dx%d" % (Window.DEFAULT_WIDTH, Window.DEFAULT_HEIGHT))
         self._window.config(bg="black")
         
         # Add menu bar
@@ -35,13 +38,15 @@ class Window:
         # https://www.geeksforgeeks.org/python/how-to-center-a-window-on-the-screen-in-tkinter/
         self._window.update_idletasks()
         
+        #window_width = Window.DEFAULT_WIDTH
         window_width = self._window.winfo_width()
+        #window_height = Window.DEFAULT_HEIGHT
         window_height = self._window.winfo_height()
         screen_width = self._window.winfo_screenwidth()
         screen_height = self._window.winfo_screenheight()
         
         x = (screen_width - window_width) // 2
-        y = (screen_height - window_height) // 2 - 48
+        y = (screen_height - window_height) // 2 - 48 # Shift up by 48 pixels for taskbar.
         self._window.geometry(f"{window_width}x{window_height}+{x}+{y}")
         
         self.window.mainloop()
