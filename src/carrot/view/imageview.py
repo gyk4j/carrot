@@ -1,6 +1,6 @@
 import tkinter as tk
 
-from PIL import Image, ImageTk
+from PIL import Image, ImageTk, ImageFile
 
 # Source: https://www.geeksforgeeks.org/python/how-to-resize-image-in-python-tkinter/
 class ImageView:
@@ -8,11 +8,11 @@ class ImageView:
     MAX=8 # For testing only.
 
     def __init__(self, window):
-        self.current_img = 1
-        self.img_id = -1
+        self._current_img = 1
+        self._img_id = -1
 
         # Set initial size to 640x480.
-        self.imageview = tk.Canvas(
+        self._imageview = tk.Canvas(
             window, 
             bg='gray', 
             width= 640, 
@@ -20,23 +20,39 @@ class ImageView:
             relief=tk.SUNKEN,
             borderwidth = 1,
         )
-        self.imageview.pack(expand=True, fill=tk.BOTH)
-        self.imageview.update()
+        self._imageview.pack(expand=True, fill=tk.BOTH)
+        self._imageview.update()
         self.load_image()
-        print("%d x %d" % (self.imageview.winfo_width(), self.imageview.winfo_height()))
+        print("%d x %d" % (self._imageview.winfo_width(), self._imageview.winfo_height()))
 
-        self.imageview.bind("<Configure>", self.on_configure)
+        self._imageview.bind("<Configure>", self.on_configure)
+
+    @property
+    def imageview(self) -> tk.Canvas:
+        return self._imageview
+
+    @property
+    def img_original(self) -> Image.Image:
+        return self._img_original
+
+    @property
+    def img_resized(self) -> tk.Image:
+        return self._img_resized
+
+    @property
+    def img(self) -> Image.Image:
+        return self._img
 
     def load_image(self):
-        file = "%d.jpg" % (self.current_img)
+        file = "%d.jpg" % (self._current_img)
         #print(file)
-        self.img_original = Image.open(file)
+        self._img_original : Image.Image = Image.open(file)
         self.fit_image()
 
     def fit_image(self):
-        i_width, i_height = self.img_original.size
-        self.c_width = self.imageview.winfo_width()
-        self.c_height = self.imageview.winfo_height()
+        i_width, i_height = self._img_original.size
+        self.c_width = self._imageview.winfo_width()
+        self.c_height = self._imageview.winfo_height()
 
         print("Image Width     : %d pixels" % (i_width))
         print("Image Height    : %d pixels" % (i_height))
@@ -55,17 +71,17 @@ class ImageView:
         resized_width = int(i_width * aspect_ratio)
         resized_height = int(i_height * aspect_ratio)
 
-        self.img_resized = self.img_original.resize(
+        self._img_resized : Image.Image = self._img_original.resize(
             size = ( resized_width, resized_height )
         )
-        self.img = ImageTk.PhotoImage(self.img_resized)
+        self._img = ImageTk.PhotoImage(self._img_resized)
         
-        if self.img_id != -1:
-            self.imageview.delete( self.img_id )
+        if self._img_id != -1:
+            self._imageview.delete( self._img_id )
 
         x = (self.c_width - resized_width) // 2
         y = (self.c_height - resized_height) // 2
-        self.img_id = self.imageview.create_image(x, y, anchor=tk.NW, image = self.img)
+        self._img_id = self._imageview.create_image(x, y, anchor=tk.NW, image = self._img)
             
     def on_configure(self, event):
         print(event)
@@ -91,11 +107,11 @@ class ImageView:
             self.fit_image()
 
     def next(self):
-        if self.current_img < ImageView.MAX:
-            self.current_img += 1
+        if self._current_img < ImageView.MAX:
+            self._current_img += 1
         self.load_image()
 
     def prev(self):
-        if self.current_img > ImageView.MIN:
-            self.current_img -= 1
+        if self._current_img > ImageView.MIN:
+            self._current_img -= 1
         self.load_image()

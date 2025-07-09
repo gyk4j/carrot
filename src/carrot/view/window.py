@@ -27,8 +27,24 @@ class Window:
         self._statusbar = StatusBar(self.window)
 
     @property
-    def window(self) -> tk.Tk:
+    def window(self) -> tk.Toplevel:
         return self._window
+
+    @property
+    def menubar(self) -> MenuBar:
+        return self._menubar
+
+    @property
+    def toolbar(self) -> ToolBar:
+        return self._toolbar
+
+    @property
+    def imageview(self) -> ImageView:
+        return self._imageview
+
+    @property
+    def statusbar(self) -> StatusBar:
+        return self._statusbar
 
     def show(self):
         # Center the window
