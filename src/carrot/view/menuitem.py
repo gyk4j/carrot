@@ -73,3 +73,4 @@ class MenuItem:
     @onclick.setter
     def onclick(self, value: Callable):
         self._onclick = value
+        self._menu.entryconfigure(self._text, command=self._onclick)

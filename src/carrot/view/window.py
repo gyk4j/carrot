@@ -67,3 +67,6 @@ class Window:
         
         self.window.mainloop()
 
+    def notify(self, title='lorem', message='ipsum'):
+        tk.messagebox.showinfo(title = title, message = message)
+
