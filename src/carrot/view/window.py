@@ -51,6 +51,14 @@ class Window:
     def statusbar(self) -> StatusBar:
         return self._statusbar
 
+    @property
+    def title(self) -> str:
+        return self._window.title()
+
+    @title.setter
+    def title(self, title: str):
+        self._window.title(title)
+
     def show(self):
         # Center the window
         # https://www.geeksforgeeks.org/python/how-to-center-a-window-on-the-screen-in-tkinter/

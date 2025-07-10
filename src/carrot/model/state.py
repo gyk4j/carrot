@@ -6,18 +6,18 @@ class State:
 
     def __init__(self, master: tk.Tk):
 
-        self._db: tk.StringVar = tk.StringVar(master, value="") 
-        self._image: tk.StringVar = tk.StringVar(master, value="")
+        self._db: str = ""
+        self._image: str = ""
 
-        self._processed: tk.IntVar = tk.IntVar(master, 0)
-        self._total: tk.IntVar = tk.IntVar(master, 0)
+        self._processed: int = 0
+        self._total: int = 0
 
         # Factor is expressed as a percentage of the image size.
         # E.g. 10%, 20%, 30% ... 100%
         # At the moment, the delta is fixed at +-10% i.e. 0.1.
         # The selection dimension is calculated from factor x image size, 
         # and constrained by the chosen aspect ratio.
-        self._factor: tk.DoubleVar = tk.DoubleVar(master, 1.0)
+        self._factor: float = 1.0
         self._selection: Selection = Selection()
 
     @property
