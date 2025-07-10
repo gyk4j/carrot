@@ -37,6 +37,13 @@ class Controller:
         self.view.toolbar.go_back.onclick = self.go_back
         self.view.toolbar.go_forward.onclick = self.go_forward
 
+        # Set sample text
+        self.view.title = 'Hello World' 
+        self.view.statusbar.statusbar_file.text = 'C:\TEMP'
+        self.view.statusbar.statusbar_progress.text = '123 / 987'
+        self.view.statusbar.statusbar_mouse.text = "%d, %d" % (666, 999)
+        self.view.statusbar.statusbar_selection.text = "%d x %d pixels" % (100, 200)
+
     @property
     def view(self):
         return self._view
