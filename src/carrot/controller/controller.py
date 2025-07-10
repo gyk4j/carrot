@@ -6,9 +6,6 @@ class Controller:
         self._model = model
 
         # Menu
-        if self.file_new is None:
-            print("self.file_new is None!")
-
         self.view.menubar.menu_file_new.onclick = self.file_new
         self.view.menubar.menu_file_open.onclick = self.file_open
         self.view.menubar.menu_file_save.onclick = self.file_save
@@ -19,6 +16,16 @@ class Controller:
         self.view.menubar.menu_go_next.onclick = self.go_forward
 
         self.view.menubar.menu_help_about.onclick = self.help_about
+
+        # Hacks for menu accelerator
+        self.view.add_accelerator('<Control-n>', self.file_new) 
+        self.view.add_accelerator('<Control-o>', self.file_open)
+        self.view.add_accelerator('<Control-s>', self.file_save)
+        self.view.add_accelerator('<Control-S>', self.file_saveas)
+        self.view.add_accelerator('<Control-x>', self.file_exit)
+        self.view.add_accelerator('<Alt-Left>', self.go_back)
+        self.view.add_accelerator('<Alt-Right>', self.go_forward)
+        self.view.add_accelerator('<F1>', self.help_about)
         
         # Tool Bar
         self.view.toolbar.file_new.onclick = self.file_new

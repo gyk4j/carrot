@@ -5,7 +5,7 @@ from tkinter import messagebox
 
 class MenuItem:
 
-    def __init__(self, menu, text='', icon='', onclick=None):
+    def __init__(self, menu, text='', icon='', accelerator='', onclick=None):
         self._menu : tk.Menu = menu
         self._text : str = text
         self._icon : str = icon
@@ -16,6 +16,9 @@ class MenuItem:
         else:
             self._image = tk.PhotoImage(file=self._icon)
 
+        # Accelerator is optional
+        self._accelerator = accelerator
+
         self._onclick = onclick
 
         if self._text == '-':
@@ -24,13 +27,15 @@ class MenuItem:
             self._menu.add_command(
                 label=self._text,
                 image=self._image,
-                compound=tk.LEFT
+                compound=tk.LEFT,
+                accelerator=self._accelerator,
             )
         else:
             self._menu.add_command(
                 label=self._text,
                 image=self._image,
                 compound=tk.LEFT,
+                accelerator=self._accelerator,
                 command=self._onclick
             )
     
@@ -65,6 +70,15 @@ class MenuItem:
     @image.setter
     def image(self, value: tk.PhotoImage):
         self._image = value
+
+    @property
+    def accelerator(self) -> str:
+        return self._accelerator
+
+    @accelerator.setter
+    def accelerator(self, value: str):
+        self._accelerator = value
+        self._menu.entryconfigure(self._text, accelerator=self._accelerator)
 
     @property
     def onclick(self) -> Callable:

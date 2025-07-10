@@ -1,3 +1,5 @@
+from collections.abc import Callable
+
 import tkinter as tk
 from tkinter import messagebox
 
@@ -70,3 +72,6 @@ class Window:
     def notify(self, title='lorem', message='ipsum'):
         tk.messagebox.showinfo(title = title, message = message)
 
+    # Hack for menu accelerator
+    def add_accelerator(self, accelerator: str, onpress: Callable):
+        self._window.bind(accelerator, lambda e: onpress(), add=True)
