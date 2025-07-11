@@ -3,26 +3,30 @@ import tkinter as tk
 from .toolbarbutton import ToolBarButton
 from .toolbarseparator import ToolBarSeparator
 
+from resource import ClassLoader
+
 class ToolBar:
 
     def __init__(self, window):
         self._toolbar = tk.Frame(window)
         #(borderwidth = 2, relief=tk.RAISED)
         self._toolbar.pack(side=tk.TOP, fill=tk.X)
+
+        cl = ClassLoader()
         
-        self._file_new = ToolBarButton(self._toolbar, "New (Ctrl+N)", "res/ico/file_new.png")
-        self._file_open = ToolBarButton(self._toolbar, "Open (Ctrl+O)", "res/ico/file_open.png")
-        self._file_save = ToolBarButton(self._toolbar, "Save (Ctrl+S)", "res/ico/file_save.png")
-        self._file_saveas = ToolBarButton(self._toolbar, "Save as (Ctrl+Shift+S)", "res/ico/file_saveas.png")
-        self._file_export = ToolBarButton(self._toolbar, "Export (Ctrl+Alt+E)", "res/ico/file_export.png")
-        self._file_exit = ToolBarButton(self._toolbar, "Exit", "res/ico/file_exit.png")
+        self._file_new = ToolBarButton(self._toolbar, "New (Ctrl+N)", cl.get_resource("res/ico/file_new.png"))
+        self._file_open = ToolBarButton(self._toolbar, "Open (Ctrl+O)", cl.get_resource("res/ico/file_open.png"))
+        self._file_save = ToolBarButton(self._toolbar, "Save (Ctrl+S)", cl.get_resource("res/ico/file_save.png"))
+        self._file_saveas = ToolBarButton(self._toolbar, "Save as (Ctrl+Shift+S)", cl.get_resource("res/ico/file_saveas.png"))
+        self._file_export = ToolBarButton(self._toolbar, "Export (Ctrl+Alt+E)", cl.get_resource("res/ico/file_export.png"))
+        self._file_exit = ToolBarButton(self._toolbar, "Exit", cl.get_resource("res/ico/file_exit.png"))
         self._separator1 = ToolBarSeparator(self._toolbar)
-        self._go_back = ToolBarButton(self._toolbar, "Go Back (Alt+Left)", "res/ico/go_back.png")
-        self._go_forward = ToolBarButton(self._toolbar, "Go Forward (Alt+Right)", "res/ico/go_forward.png")
+        self._go_back = ToolBarButton(self._toolbar, "Go Back (Alt+Left)", cl.get_resource("res/ico/go_back.png"))
+        self._go_forward = ToolBarButton(self._toolbar, "Go Forward (Alt+Right)", cl.get_resource("res/ico/go_forward.png"))
         self._separator2 = ToolBarSeparator(self._toolbar)
-        self._selection_contract = ToolBarButton(self._toolbar, "Contract (Ctrl+-)", "res/ico/selection_contract.png")
-        self._selection_expand = ToolBarButton(self._toolbar, "Expand (Ctrl++)", "res/ico/selection_expand.png")
-        self._selection_mark = ToolBarButton(self._toolbar, "Mark (Enter)", "res/ico/selection_mark.png")
+        self._selection_contract = ToolBarButton(self._toolbar, "Contract (Ctrl+-)", cl.get_resource("res/ico/selection_contract.png"))
+        self._selection_expand = ToolBarButton(self._toolbar, "Expand (Ctrl++)", cl.get_resource("res/ico/selection_expand.png"))
+        self._selection_mark = ToolBarButton(self._toolbar, "Mark (Enter)", cl.get_resource("res/ico/selection_mark.png"))
 
     @property
     def toolbar(self) -> tk.Frame:

@@ -2,6 +2,8 @@ import tkinter as tk
 
 from PIL import Image, ImageTk, ImageFile
 
+from resource import ClassLoader
+
 # Source: https://www.geeksforgeeks.org/python/how-to-resize-image-in-python-tkinter/
 class ImageView:
     MIN=1 # For testing only.
@@ -44,7 +46,8 @@ class ImageView:
         return self._img
 
     def load_image(self):
-        file = "%d.jpg" % (self._current_img)
+        cl = ClassLoader()
+        file = cl.get_resource("%d.jpg" % (self._current_img))
         #print(file)
         self._img_original : Image.Image = Image.open(file)
         self.fit_image()
