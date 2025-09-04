@@ -82,18 +82,6 @@ jobs:
         unzip -qq vips-dev-w64-all-$VIPS_VERSION.zip
         mkdir -p "$GITHUB_WORKSPACE/lib64/libvips"
         mv vips-dev-8.10/bin/*.dll "$GITHUB_WORKSPACE/lib64/libvips/"
-          
-    - name: Build PyInstaller Package
-      run: |
-        pyinstaller ${{ env.PROJECT_NAME }}.spec
-
-    - name: Upload PyInstaller Artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: ${{ env.PROJECT_NAME }}-bin-${{ runner.os }}-${{ runner.arch }}-pyinstaller
-        path: dist/${{ env.PROJECT_NAME }}/
-        if-no-files-found: error
-        retention-days: 1
 
     - name: Generate Placeholder Test Images
       run: |
@@ -106,6 +94,18 @@ jobs:
         cp 0.jpg 6.jpg
         cp 0.jpg 7.jpg
         cp 0.jpg 8.jpg
+          
+    - name: Build PyInstaller Package
+      run: |
+        pyinstaller ${{ env.PROJECT_NAME }}.spec
+
+    - name: Upload PyInstaller Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ env.PROJECT_NAME }}-bin-${{ runner.os }}-${{ runner.arch }}-pyinstaller
+        path: dist/${{ env.PROJECT_NAME }}/
+        if-no-files-found: error
+        retention-days: 1
 
     - name: Build cx_Freeze Package
       run: |
