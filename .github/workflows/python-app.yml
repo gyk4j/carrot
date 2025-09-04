@@ -1,14 +1,14 @@
 # This workflow will install Python dependencies, run tests and lint with a single version of Python
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
 
-name: Python build
+name: Python
 
 on:
   workflow_dispatch:
-  # push:
-    # branches: [ "main" ]
-  # pull_request:
-    # branches: [ "main" ]
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 permissions:
   contents: read
@@ -71,7 +71,7 @@ jobs:
     - name: Upload Package Artifact
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ env.PROJECT_NAME }}-whl-${{ github.sha }}
+        name: ${{ env.PROJECT_NAME }}-whl
         path: dist/
         if-no-files-found: error
         retention-days: 1
@@ -90,8 +90,32 @@ jobs:
     - name: Upload PyInstaller Artifact
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ env.PROJECT_NAME }}-bin-${{ runner.os }}-${{ runner.arch }}-${{ github.sha }}
+        name: ${{ env.PROJECT_NAME }}-bin-${{ runner.os }}-${{ runner.arch }}-pyinstaller
         path: dist/${{ env.PROJECT_NAME }}/
+        if-no-files-found: error
+        retention-days: 1
+
+    - name: Generate Placeholder Test Images
+      run: |
+        curl -sSL -o 0.jpg https://placehold.co/640x480/jpeg
+        cp 0.jpg 1.jpg
+        cp 0.jpg 2.jpg
+        cp 0.jpg 3.jpg
+        cp 0.jpg 4.jpg
+        cp 0.jpg 5.jpg
+        cp 0.jpg 6.jpg
+        cp 0.jpg 7.jpg
+        cp 0.jpg 8.jpg
+
+    - name: Build cx_Freeze Package
+      run: |
+        py setup.py build
+
+    - name: Upload cx_Freeze Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ env.PROJECT_NAME }}-bin-${{ runner.os }}-${{ runner.arch }}-cxfreeze
+        path: build/exe.win-amd64-${{ env.PYTHON_VERSION }}/
         if-no-files-found: error
         retention-days: 1
         
