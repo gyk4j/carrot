@@ -52,7 +52,7 @@ jobs:
     - name: Install dependencies
       run: |
         py -$PYTHON_VERSION -m pip install --upgrade pip
-        pip install flake8 pytest build setuptools pyinstaller
+        pip install flake8 pytest build setuptools pyinstaller cx-Freeze==6.15.16
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 #    - name: Lint with flake8
 #      run: |
@@ -64,17 +64,17 @@ jobs:
 #      run: |
 #        pytest
 
-    - name: Build Python Package
-      run: |
-        py -$PYTHON_VERSION -m build
+    # - name: Build Python Package
+    #   run: |
+    #     py -$PYTHON_VERSION -m build
 
-    - name: Upload Package Artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: ${{ env.PROJECT_NAME }}-whl
-        path: dist/
-        if-no-files-found: error
-        retention-days: 1
+    # - name: Upload Package Artifact
+    #   uses: actions/upload-artifact@v4
+    #   with:
+    #     name: ${{ env.PROJECT_NAME }}-whl
+    #     path: dist/
+    #     if-no-files-found: error
+    #     retention-days: 1
         
     - name: Extract libvips
       working-directory: ${{ runner.temp }}
@@ -82,6 +82,18 @@ jobs:
         unzip -qq vips-dev-w64-all-$VIPS_VERSION.zip
         mkdir -p "$GITHUB_WORKSPACE/lib64/libvips"
         mv vips-dev-8.10/bin/*.dll "$GITHUB_WORKSPACE/lib64/libvips/"
+
+    - name: Generate Placeholder Test Images
+      run: |
+        curl -sSL -o 0.jpg https://placehold.co/640x480/jpeg
+        cp 0.jpg 1.jpg
+        cp 0.jpg 2.jpg
+        cp 0.jpg 3.jpg
+        cp 0.jpg 4.jpg
+        cp 0.jpg 5.jpg
+        cp 0.jpg 6.jpg
+        cp 0.jpg 7.jpg
+        cp 0.jpg 8.jpg
           
     - name: Build PyInstaller Package
       run: |
@@ -95,21 +107,9 @@ jobs:
         if-no-files-found: error
         retention-days: 1
 
-    - name: Generate Placeholder Test Images
-      run: |
-        curl -sSL -o 0.jpg https://placehold.co/640x480/jpeg
-        cp 0.jpg 1.jpg
-        cp 0.jpg 2.jpg
-        cp 0.jpg 3.jpg
-        cp 0.jpg 4.jpg
-        cp 0.jpg 5.jpg
-        cp 0.jpg 6.jpg
-        cp 0.jpg 7.jpg
-        cp 0.jpg 8.jpg
-
     - name: Build cx_Freeze Package
       run: |
-        py setup.py build
+        py -${{ env.PYTHON_VERSION }} setup.py build
 
     - name: Upload cx_Freeze Artifact
       uses: actions/upload-artifact@v4
