@@ -64,17 +64,17 @@ jobs:
 #      run: |
 #        pytest
 
-    - name: Build Python Package
-      run: |
-        py -$PYTHON_VERSION -m build
+    # - name: Build Python Package
+    #   run: |
+    #     py -$PYTHON_VERSION -m build
 
-    - name: Upload Package Artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: ${{ env.PROJECT_NAME }}-whl
-        path: dist/
-        if-no-files-found: error
-        retention-days: 1
+    # - name: Upload Package Artifact
+    #   uses: actions/upload-artifact@v4
+    #   with:
+    #     name: ${{ env.PROJECT_NAME }}-whl
+    #     path: dist/
+    #     if-no-files-found: error
+    #     retention-days: 1
         
     - name: Extract libvips
       working-directory: ${{ runner.temp }}
