@@ -58,15 +58,15 @@ jobs:
       working-directory: ${{ runner.temp }}
       run: |
         ls *.jpg
-        cp 640x480.jpg $GITHUB_WORKSPACE/0.jpg
-        cp 640x480.jpg $GITHUB_WORKSPACE/1.jpg
-        cp 640x480.jpg $GITHUB_WORKSPACE/2.jpg
-        cp 640x480.jpg $GITHUB_WORKSPACE/3.jpg
-        cp 640x480.jpg $GITHUB_WORKSPACE/4.jpg
-        cp 640x480.jpg $GITHUB_WORKSPACE/5.jpg
-        cp 640x480.jpg $GITHUB_WORKSPACE/6.jpg
-        cp 640x480.jpg $GITHUB_WORKSPACE/7.jpg
-        cp 640x480.jpg $GITHUB_WORKSPACE/8.jpg
+        cp 640x480.jpg "$GITHUB_WORKSPACE/0.jpg"
+        cp 640x480.jpg "$GITHUB_WORKSPACE/1.jpg"
+        cp 640x480.jpg "$GITHUB_WORKSPACE/2.jpg"
+        cp 640x480.jpg "$GITHUB_WORKSPACE/3.jpg"
+        cp 640x480.jpg "$GITHUB_WORKSPACE/4.jpg"
+        cp 640x480.jpg "$GITHUB_WORKSPACE/5.jpg"
+        cp 640x480.jpg "$GITHUB_WORKSPACE/6.jpg"
+        cp 640x480.jpg "$GITHUB_WORKSPACE/7.jpg"
+        cp 640x480.jpg "$GITHUB_WORKSPACE/8.jpg"
         ls -R $GITHUB_WORKSPACE
 
     # - name: Lint with flake8
