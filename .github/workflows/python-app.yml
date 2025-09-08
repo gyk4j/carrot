@@ -137,7 +137,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        choco install vcredist-all
+        choco install vcredist140
         py -${{ env.PYTHON_VERSION }} -m pip install --upgrade pip --quiet
         if [ -f requirements.txt ]; then py -${{ env.PYTHON_VERSION }} -m pip install -r requirements.txt --quiet; fi
       # pip install flake8 pytest build setuptools pyinstaller cx-Freeze==6.15.16
@@ -175,7 +175,7 @@ jobs:
         
     - name: Install dependencies
       run: |
-        choco install vcredist-all
+        choco install vcredist140
         py -${{ env.PYTHON_VERSION }} -m pip install --upgrade pip --quiet
         if [ -f requirements.txt ]; then py -${{ env.PYTHON_VERSION }} -m pip install -r requirements.txt --quiet; fi
       # pip install flake8 pytest build setuptools pyinstaller cx-Freeze==6.15.16
