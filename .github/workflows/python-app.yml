@@ -61,7 +61,6 @@ jobs:
     - name: Copy images
       working-directory: ${{ runner.temp }}
       run: |
-        ls *.jpg
         cp 640x480.jpg "$GITHUB_WORKSPACE/0.jpg"
         cp 640x480.jpg "$GITHUB_WORKSPACE/1.jpg"
         cp 640x480.jpg "$GITHUB_WORKSPACE/2.jpg"
@@ -71,7 +70,6 @@ jobs:
         cp 640x480.jpg "$GITHUB_WORKSPACE/6.jpg"
         cp 640x480.jpg "$GITHUB_WORKSPACE/7.jpg"
         cp 640x480.jpg "$GITHUB_WORKSPACE/8.jpg"
-        ls -R $GITHUB_WORKSPACE
 
     # - name: Lint with flake8
     #   run: |
@@ -112,7 +110,6 @@ jobs:
 
 #     - name: Build Python Package
 #       run: |
-#         ls -la
 #         py -${{ env.PYTHON_VERSION }} -m build --quiet
 
 #     - name: Upload Package Artifact
@@ -150,8 +147,7 @@ jobs:
 
     - name: Build PyInstaller Package
       run: |
-        ls -la
-        pyinstaller ${{ env.PROJECT_NAME }}.spec
+        pyinstaller --log-level WARN ${{ env.PROJECT_NAME }}.spec
 
     - name: Upload PyInstaller Artifact
       uses: actions/upload-artifact@v4
@@ -188,8 +184,7 @@ jobs:
 
     - name: Build cx_Freeze Package
       run: |
-        ls -la
-        py -${{ env.PYTHON_VERSION }} setup.py build
+        py -${{ env.PYTHON_VERSION }} setup.py build --silent
 
     - name: Upload cx_Freeze Artifact
       uses: actions/upload-artifact@v4
