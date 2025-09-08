@@ -137,6 +137,7 @@ jobs:
 
     - name: Install dependencies
       run: |
+        choco install vcredist-all
         py -${{ env.PYTHON_VERSION }} -m pip install --upgrade pip --quiet
         if [ -f requirements.txt ]; then py -${{ env.PYTHON_VERSION }} -m pip install -r requirements.txt --quiet; fi
       # pip install flake8 pytest build setuptools pyinstaller cx-Freeze==6.15.16
@@ -174,6 +175,7 @@ jobs:
         
     - name: Install dependencies
       run: |
+        choco install vcredist-all
         py -${{ env.PYTHON_VERSION }} -m pip install --upgrade pip --quiet
         if [ -f requirements.txt ]; then py -${{ env.PYTHON_VERSION }} -m pip install -r requirements.txt --quiet; fi
       # pip install flake8 pytest build setuptools pyinstaller cx-Freeze==6.15.16
@@ -184,7 +186,7 @@ jobs:
 
     - name: Build cx_Freeze Package
       run: |
-        py -${{ env.PYTHON_VERSION }} setup.py build --silent
+        py -${{ env.PYTHON_VERSION }} setup.py build
 
     - name: Upload cx_Freeze Artifact
       uses: actions/upload-artifact@v4

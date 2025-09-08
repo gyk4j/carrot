@@ -58,6 +58,8 @@ build_exe_options = {
         # "libvips-42.dll",
         # "libvips-cpp-42.dll",
     # ],
+    "silent": True,
+    "silent_level": 1,
 }
 
 # base="Win32GUI" should be used only for Windows GUI app
