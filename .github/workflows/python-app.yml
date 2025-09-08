@@ -126,10 +126,11 @@ jobs:
     steps:
     
     - uses: actions/checkout@v4
-    - name: Set up Python ${{ env.PYTHON_VERSION }}
-      uses: actions/setup-python@v6
+    
+    - uses: actions/setup-python@v6
       with:
         python-version: '3.8'
+
     - name: Install dependencies
       run: |
         py -${{ env.PYTHON_VERSION }} -m pip install --upgrade pip --quiet
@@ -162,10 +163,11 @@ jobs:
     steps:
     
     - uses: actions/checkout@v4
-    - name: Set up Python ${{ env.PYTHON_VERSION }}
-      uses: actions/setup-python@v6
+    
+    - uses: actions/setup-python@v6
       with:
         python-version: '3.8'
+        
     - name: Install dependencies
       run: |
         py -${{ env.PYTHON_VERSION }} -m pip install --upgrade pip --quiet
