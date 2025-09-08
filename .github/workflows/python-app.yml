@@ -103,7 +103,7 @@ jobs:
 #     - name: Set up Python ${{ env.PYTHON_VERSION }}
 #       uses: actions/setup-python@v6
 #       with:
-#         python-version: '3.8'
+#         python-version: '${{ env.PYTHON_VERSION }}'
 #     - name: Install dependencies
 #       run: |
 #         py -${{ env.PYTHON_VERSION }} -m pip install --upgrade pip --quiet
@@ -136,13 +136,13 @@ jobs:
     - name: Set up Python ${{ env.PYTHON_VERSION }}
       uses: actions/setup-python@v6
       with:
-        python-version: '3.8'
+        python-version: '${{ env.PYTHON_VERSION }}'
 
     - name: Install dependencies
       run: |
         py -${{ env.PYTHON_VERSION }} -m pip install --upgrade pip --quiet
-        pip install flake8 pytest build setuptools pyinstaller cx-Freeze==6.15.16
         if [ -f requirements.txt ]; then py -${{ env.PYTHON_VERSION }} -m pip install -r requirements.txt --quiet; fi
+      # pip install flake8 pytest build setuptools pyinstaller cx-Freeze==6.15.16
 
     - uses: actions/download-artifact@v5
       with:
@@ -174,13 +174,13 @@ jobs:
     - name: Set up Python ${{ env.PYTHON_VERSION }}
       uses: actions/setup-python@v6
       with:
-        python-version: '3.8'
+        python-version: '${{ env.PYTHON_VERSION }}'
         
     - name: Install dependencies
       run: |
         py -${{ env.PYTHON_VERSION }} -m pip install --upgrade pip --quiet
-        pip install flake8 pytest build setuptools pyinstaller cx-Freeze==6.15.16
         if [ -f requirements.txt ]; then py -${{ env.PYTHON_VERSION }} -m pip install -r requirements.txt --quiet; fi
+      # pip install flake8 pytest build setuptools pyinstaller cx-Freeze==6.15.16
 
     - uses: actions/download-artifact@v5
       with:
