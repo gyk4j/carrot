@@ -5,77 +5,52 @@ name: Python
 
 on:
   workflow_dispatch:
-  push:
-    branches: [ "main" ]
+  # push:
+  #   branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
 permissions:
   contents: read
 
+defaults:
+  run:
+    shell: bash
+
+env:
+  PROJECT_NAME: ${{ github.event.repository.name }}
+  PYTHON_VERSION: 3.8
+  VIPS_VERSION: 8.10.5
+  CACHE_NAME: cache-deps
+
 jobs:
-  build:
+  download:
 
     runs-on: windows-latest
-    
-    env:
-      PROJECT_NAME: ${{ github.event.repository.name }}
-      PYTHON_VERSION: 3.8
-      VIPS_VERSION: 8.10.5
     
     defaults:
       run:
         shell: bash
 
     steps:
-    - name: Cache libvips
-      id: cache-libvips
-      uses: actions/cache@v4
-      env:
-        cache-name: cache-libvips
+
+    - name: Cache dependencies
+      id: cache-deps
+      uses: actions/cache@v4        
       with:
         path: |
           ${{ runner.temp }}/vips-dev-w64-all-${{ env.VIPS_VERSION }}.zip
-        key: ${{ runner.os }}-build-${{ env.cache-name }}
+          ${{ runner.temp }}/640x480.jpg
+        key: ${{ env.CACHE_NAME }}-${{ runner.os }}
 
-    - if: ${{ steps.cache-libvips.outputs.cache-hit != 'true' }}    
-      name: Download libvips
+    - if: ${{ steps.cache-deps.outputs.cache-hit != 'true' }}    
+      name: Download dependencies
       #continue-on-error: true
       working-directory: ${{ runner.temp }}
       run: |
         curl -sSL -O https://github.com/libvips/libvips/releases/download/v$VIPS_VERSION/vips-dev-w64-all-$VIPS_VERSION.zip
-    - uses: actions/checkout@v4
-    - name: Set up Python 3.8
-      uses: actions/setup-python@v3
-      with:
-        python-version: ${{ env.PYTHON_VERSION }}
-    - name: Install dependencies
-      run: |
-        py -$PYTHON_VERSION -m pip install --upgrade pip
-        pip install flake8 pytest build setuptools pyinstaller cx-Freeze==6.15.16
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-#    - name: Lint with flake8
-#      run: |
-        # stop the build if there are Python syntax errors or undefined names
-#        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-#        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-#    - name: Test with pytest
-#      run: |
-#        pytest
+        curl -sSL -o 640x480.jpg https://placehold.co/640x480/jpeg
 
-    # - name: Build Python Package
-    #   run: |
-    #     py -$PYTHON_VERSION -m build
-
-    # - name: Upload Package Artifact
-    #   uses: actions/upload-artifact@v4
-    #   with:
-    #     name: ${{ env.PROJECT_NAME }}-whl
-    #     path: dist/
-    #     if-no-files-found: error
-    #     retention-days: 1
-        
     - name: Extract libvips
       working-directory: ${{ runner.temp }}
       run: |
@@ -83,21 +58,97 @@ jobs:
         mkdir -p "$GITHUB_WORKSPACE/lib64/libvips"
         mv vips-dev-8.10/bin/*.dll "$GITHUB_WORKSPACE/lib64/libvips/"
 
-    - name: Generate Placeholder Test Images
+    - name: Copy images
+      working-directory: ${{ runner.temp }}
       run: |
-        curl -sSL -o 0.jpg https://placehold.co/640x480/jpeg
-        cp 0.jpg 1.jpg
-        cp 0.jpg 2.jpg
-        cp 0.jpg 3.jpg
-        cp 0.jpg 4.jpg
-        cp 0.jpg 5.jpg
-        cp 0.jpg 6.jpg
-        cp 0.jpg 7.jpg
-        cp 0.jpg 8.jpg
-          
+        cp 640x480.jpg "$GITHUB_WORKSPACE/0.jpg"
+        cp 640x480.jpg "$GITHUB_WORKSPACE/1.jpg"
+        cp 640x480.jpg "$GITHUB_WORKSPACE/2.jpg"
+        cp 640x480.jpg "$GITHUB_WORKSPACE/3.jpg"
+        cp 640x480.jpg "$GITHUB_WORKSPACE/4.jpg"
+        cp 640x480.jpg "$GITHUB_WORKSPACE/5.jpg"
+        cp 640x480.jpg "$GITHUB_WORKSPACE/6.jpg"
+        cp 640x480.jpg "$GITHUB_WORKSPACE/7.jpg"
+        cp 640x480.jpg "$GITHUB_WORKSPACE/8.jpg"
+
+    # - name: Lint with flake8
+    #   run: |
+#       stop the build if there are Python syntax errors or undefined names
+        # flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+#       exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+        # flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+    # - name: Test with pytest
+    #   run: |
+    #     pytest
+
+    - name: Upload Dependency Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ env.PROJECT_NAME }}-deps
+        path: |
+          *.jpg
+          lib64/
+        if-no-files-found: error
+        retention-days: 1
+
+#   package:
+
+#     runs-on: windows-latest
+    
+#     steps:
+
+#     - uses: actions/checkout@v4
+#     - name: Set up Python ${{ env.PYTHON_VERSION }}
+#       uses: actions/setup-python@v6
+#       with:
+#         python-version: '${{ env.PYTHON_VERSION }}'
+#     - name: Install dependencies
+#       run: |
+#         py -${{ env.PYTHON_VERSION }} -m pip install --upgrade pip --quiet
+#         pip install flake8 pytest build setuptools pyinstaller cx-Freeze==6.15.16
+#         if [ -f requirements.txt ]; then py -${{ env.PYTHON_VERSION }} -m pip install -r requirements.txt --quiet; fi
+
+#     - name: Build Python Package
+#       run: |
+#         py -${{ env.PYTHON_VERSION }} -m build --quiet
+
+#     - name: Upload Package Artifact
+#       uses: actions/upload-artifact@v4
+#       with:
+#         name: ${{ env.PROJECT_NAME }}-whl
+#         path: dist/
+#         if-no-files-found: error
+#         retention-days: 1
+
+  pyinstaller:
+
+    runs-on: windows-latest
+
+    needs: download
+    
+    steps:
+    
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python ${{ env.PYTHON_VERSION }}
+      uses: actions/setup-python@v6
+      with:
+        python-version: '${{ env.PYTHON_VERSION }}'
+
+    - name: Install dependencies
+      run: |
+        choco install vcredist140
+        py -${{ env.PYTHON_VERSION }} -m pip install --upgrade pip --quiet
+        if [ -f requirements.txt ]; then py -${{ env.PYTHON_VERSION }} -m pip install -r requirements.txt --quiet; fi
+      # pip install flake8 pytest build setuptools pyinstaller cx-Freeze==6.15.16
+
+    - uses: actions/download-artifact@v5
+      with:
+        name: ${{ env.PROJECT_NAME }}-deps
+
     - name: Build PyInstaller Package
       run: |
-        pyinstaller ${{ env.PROJECT_NAME }}.spec
+        pyinstaller --log-level WARN ${{ env.PROJECT_NAME }}.spec
 
     - name: Upload PyInstaller Artifact
       uses: actions/upload-artifact@v4
@@ -106,6 +157,32 @@ jobs:
         path: dist/${{ env.PROJECT_NAME }}/
         if-no-files-found: error
         retention-days: 1
+
+  cx_Freeze:
+
+    runs-on: windows-latest
+
+    needs: download
+    
+    steps:
+    
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python ${{ env.PYTHON_VERSION }}
+      uses: actions/setup-python@v6
+      with:
+        python-version: '${{ env.PYTHON_VERSION }}'
+        
+    - name: Install dependencies
+      run: |
+        choco install vcredist140
+        py -${{ env.PYTHON_VERSION }} -m pip install --upgrade pip --quiet
+        if [ -f requirements.txt ]; then py -${{ env.PYTHON_VERSION }} -m pip install -r requirements.txt --quiet; fi
+      # pip install flake8 pytest build setuptools pyinstaller cx-Freeze==6.15.16
+
+    - uses: actions/download-artifact@v5
+      with:
+        name: ${{ env.PROJECT_NAME }}-deps
 
     - name: Build cx_Freeze Package
       run: |
