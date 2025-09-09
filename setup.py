@@ -10,10 +10,10 @@ build_exe_options = {
     "excludes": ["unittest"],
     "includes": ["pyvips"],
     "include_files": [
-        "lib64/libvips/libglib-2.0-0.dll",
-        "lib64/libvips/libgobject-2.0-0.dll",
-        "lib64/libvips/libvips-42.dll",
-        "lib64/libvips/libvips-cpp-42.dll",
+        # "lib64/libvips/libglib-2.0-0.dll",
+        # "lib64/libvips/libgobject-2.0-0.dll",
+        # "lib64/libvips/libvips-42.dll",
+        # "lib64/libvips/libvips-cpp-42.dll",
         ("res/ico/file_exit.png", "_internal/res/ico/file_exit.png"),
         ("res/ico/file_exit_24.png", "_internal/res/ico/file_exit_24.png"),
         ("res/ico/file_export.png", "_internal/res/ico/file_export.png"),
@@ -59,7 +59,7 @@ build_exe_options = {
         # "libvips-cpp-42.dll",
     # ],
     "silent": True,
-    "silent_level": 1,
+    "silent_level": 2,
 }
 
 # base="Win32GUI" should be used only for Windows GUI app
