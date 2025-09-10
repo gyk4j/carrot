@@ -118,5 +118,14 @@ setup(
     version="0.0.1",
     description="carrot",
     options={"build_exe": build_exe_options},
-    executables=[Executable("src/carrot/app.py", base=base)],
+    executables=[
+        Executable(
+            "src/carrot/app.py",
+            base=base,
+            target_name="carrot",
+            icon="res/ico/app.ico",
+            copyright="Copyright (c) 2025 gyk4j. All rights reserved.",
+            trademarks="carrot(tm)",
+        )
+    ],
 )
