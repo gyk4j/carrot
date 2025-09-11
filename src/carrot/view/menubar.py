@@ -1,9 +1,9 @@
 import tkinter as tk
 
-from view.menu import Menu
-from view.menuitem import MenuItem
+from .menu import Menu
+from .menuitem import MenuItem
 
-from resource import ClassLoader
+from ..resource import ClassLoader
 
 class MenuBar:
 

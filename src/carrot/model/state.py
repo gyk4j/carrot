@@ -1,10 +1,8 @@
-import tkinter as tk
-
-from model.selection import Selection
+from .selection import Selection
 
 class State:
 
-    def __init__(self, master: tk.Tk):
+    def __init__(self):
 
         self._db: str = ""
         self._image: str = ""

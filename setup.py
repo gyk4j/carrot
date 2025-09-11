@@ -1,12 +1,14 @@
 import sys
 from cx_Freeze import setup, Executable
 
-sys.path.append("src/carrot")
+paths = sys.path.copy()
+paths.append("src")
 
 # Dependencies are automatically detected, but it might need fine tuning.
 build_exe_options = {
-    # "replace_paths": [("*","src/")],
-    "packages": ["model", "view", "controller"],
+    # "replace_paths": ["*=carrot"],
+    "path": paths,
+    "packages": ["carrot", "carrot.model", "carrot.view", "carrot.controller"],
     "excludes": [
         "PIL.GifImagePlugin",
         "PIL.FpxImagePlugin",
@@ -62,6 +64,7 @@ build_exe_options = {
         ("lib64/libvips/libgobject-2.0-0.dll", "lib/libgobject-2.0-0.dll"),
         ("lib64/libvips/libvips-42.dll", "lib/libvips-42.dll"),
         ("lib64/libvips/libvips-cpp-42.dll", "lib/libvips-cpp-42.dll"),
+        ("res/ico/app.ico", "_internal/res/ico/app.ico"),
         ("res/ico/file_exit.png", "_internal/res/ico/file_exit.png"),
         ("res/ico/file_exit_24.png", "_internal/res/ico/file_exit_24.png"),
         ("res/ico/file_export.png", "_internal/res/ico/file_export.png"),

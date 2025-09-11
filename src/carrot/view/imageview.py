@@ -2,7 +2,7 @@ import tkinter as tk
 
 from PIL import Image, ImageTk, ImageFile
 
-from resource import ClassLoader
+from ..resource import ClassLoader
 
 # Source: https://www.geeksforgeeks.org/python/how-to-resize-image-in-python-tkinter/
 class ImageView:
