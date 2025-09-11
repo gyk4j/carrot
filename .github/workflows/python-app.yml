@@ -21,7 +21,7 @@ env:
   PROJECT_NAME: ${{ github.event.repository.name }}
   PYTHON_VERSION: 3.8
   VIPS_VERSION: 8.10.5
-  CACHE_NAME: cache-deps
+  CACHE_NAME: cache-res
 
 jobs:
   download:
@@ -34,33 +34,29 @@ jobs:
 
     steps:
 
-    - name: Cache dependencies
-      id: cache-deps
+    - name: Cache resources
+      id: cache-res
       uses: actions/cache@v4        
       with:
         path: |
-          ${{ runner.temp }}/vips-dev-w64-all-${{ env.VIPS_VERSION }}.zip
-          ${{ runner.temp }}/640x480.jpg
+          lib64/libvips/*
+          *.jpg
         key: ${{ env.CACHE_NAME }}-${{ runner.os }}
-
-    - if: ${{ steps.cache-deps.outputs.cache-hit != 'true' }}    
-      name: Download dependencies
-      #continue-on-error: true
+        
+    - if: ${{ steps.cache-res.outputs.cache-hit != 'true' }}
+      name: Extract libvips
       working-directory: ${{ runner.temp }}
       run: |
         curl -sSL -O https://github.com/libvips/libvips/releases/download/v$VIPS_VERSION/vips-dev-w64-all-$VIPS_VERSION.zip
-        curl -sSL -o 640x480.jpg https://placehold.co/640x480/jpeg
-
-    - name: Extract libvips
-      working-directory: ${{ runner.temp }}
-      run: |
         unzip -qq vips-dev-w64-all-$VIPS_VERSION.zip
         mkdir -p "$GITHUB_WORKSPACE/lib64/libvips"
         mv vips-dev-8.10/bin/*.dll "$GITHUB_WORKSPACE/lib64/libvips/"
 
-    - name: Copy images
+    - if: ${{ steps.cache-res.outputs.cache-hit != 'true' }}
+      name: Copy images
       working-directory: ${{ runner.temp }}
       run: |
+        curl -sSL -o 640x480.jpg https://placehold.co/640x480/jpeg
         cp 640x480.jpg "$GITHUB_WORKSPACE/0.jpg"
         cp 640x480.jpg "$GITHUB_WORKSPACE/1.jpg"
         cp 640x480.jpg "$GITHUB_WORKSPACE/2.jpg"
@@ -80,16 +76,6 @@ jobs:
     # - name: Test with pytest
     #   run: |
     #     pytest
-
-    - name: Upload Dependency Artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: ${{ env.PROJECT_NAME }}-deps
-        path: |
-          *.jpg
-          lib64/
-        if-no-files-found: error
-        retention-days: 1
 
 #   package:
 
@@ -137,14 +123,18 @@ jobs:
 
     - name: Install dependencies
       run: |
-        choco install vcredist140
         py -${{ env.PYTHON_VERSION }} -m pip install --upgrade pip --quiet
         if [ -f requirements.txt ]; then py -${{ env.PYTHON_VERSION }} -m pip install -r requirements.txt --quiet; fi
       # pip install flake8 pytest build setuptools pyinstaller cx-Freeze==6.15.16
 
-    - uses: actions/download-artifact@v5
+    - name: Reuse cached resources
+      id: cache-res
+      uses: actions/cache@v4        
       with:
-        name: ${{ env.PROJECT_NAME }}-deps
+        path: |
+          lib64/libvips/*
+          *.jpg
+        key: ${{ env.CACHE_NAME }}-${{ runner.os }}
 
     - name: Build PyInstaller Package
       run: |
@@ -175,14 +165,18 @@ jobs:
         
     - name: Install dependencies
       run: |
-        choco install vcredist140
         py -${{ env.PYTHON_VERSION }} -m pip install --upgrade pip --quiet
         if [ -f requirements.txt ]; then py -${{ env.PYTHON_VERSION }} -m pip install -r requirements.txt --quiet; fi
       # pip install flake8 pytest build setuptools pyinstaller cx-Freeze==6.15.16
 
-    - uses: actions/download-artifact@v5
+    - name: Reuse cached resources
+      id: cache-res
+      uses: actions/cache@v4        
       with:
-        name: ${{ env.PROJECT_NAME }}-deps
+        path: |
+          lib64/libvips/*
+          *.jpg
+        key: ${{ env.CACHE_NAME }}-${{ runner.os }}
 
     - name: Build cx_Freeze Package
       run: |
