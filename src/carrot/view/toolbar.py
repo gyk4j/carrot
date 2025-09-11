@@ -3,7 +3,7 @@ import tkinter as tk
 from .toolbarbutton import ToolBarButton
 from .toolbarseparator import ToolBarSeparator
 
-from resource import ClassLoader
+from ..resource import ClassLoader
 
 class ToolBar:
 

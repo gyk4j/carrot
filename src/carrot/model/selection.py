@@ -1,5 +1,5 @@
-from model.point import Point
-from model.dimension import Dimension
+from .point import Point
+from .dimension import Dimension
 
 class Selection:
 

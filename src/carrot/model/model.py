@@ -1,8 +1,6 @@
-import tkinter as tk
-
 class Model:
 
-    def __init__(self, tk: tk.Tk):
+    def __init__(self):
         self._images = [
             "1.jpg",
             "2.jpg",

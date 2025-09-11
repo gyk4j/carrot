@@ -3,6 +3,7 @@ from collections.abc import Callable
 import tkinter as tk
 from tkinter import messagebox
 
+from ..resource import ClassLoader
 from .menubar import MenuBar
 from .toolbar import ToolBar
 from .imageview import ImageView
@@ -14,7 +15,10 @@ class Window:
     DEFAULT_HEIGHT = 640
 
     def __init__(self, title):
+        cl = ClassLoader()
+
         self._window = tk.Tk()
+        self._window.iconbitmap(cl.get_resource("res/ico/app.ico"))
         self._window.title(title)
         self._window.geometry("%dx%d" % (Window.DEFAULT_WIDTH, Window.DEFAULT_HEIGHT))
         self._window.config(bg="black")

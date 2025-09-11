@@ -1,15 +1,15 @@
 import sys
 import shlex
 
-from view.window import Window
-from model.state import State
-from controller.controller import Controller
+from carrot.view.window import Window
+from carrot.model.state import State
+from carrot.controller.controller import Controller
 
 class App:
 
     def __init__(self):
         self._window = Window(shlex.join(sys.argv))
-        self._state = State(self._window.window)
+        self._state = State()
         self._controller = Controller(self._window, self._state)
     
     def run(self) -> int:
