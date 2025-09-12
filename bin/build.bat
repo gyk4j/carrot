@@ -1,6 +1,6 @@
 @echo off
 
-cls
+REM Requires `.venv\Scripts\activate.bat` to set the virtual environment.
 
 call :pyinstaller
 call :cx_Freeze
