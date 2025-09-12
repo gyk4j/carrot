@@ -138,7 +138,8 @@ jobs:
 
     - name: Build PyInstaller Package
       run: |
-        pyinstaller --log-level WARN ${{ env.PROJECT_NAME }}.spec
+        pyinstaller --noconfirm --log-level WARN pyinstaller.spec
+      # pyi-set_version file_version_info.txt dist/carrot/carrot.exe
 
     - name: Upload PyInstaller Artifact
       uses: actions/upload-artifact@v4
