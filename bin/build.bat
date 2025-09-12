@@ -2,12 +2,12 @@
 
 cls
 
-REM goto pyinstaller
-goto cx_Freeze
+call :pyinstaller
+call :cx_Freeze
 goto end
 
 :pyinstaller
-pyinstaller  -y --log-level WARN carrot.spec
+pyinstaller --noconfirm --log-level WARN pyinstaller.spec
 if ERRORLEVEL 1 goto error
 dir dist\carrot\
 if exist "dist\carrot\carrot.exe" "dist\carrot\carrot.exe"
