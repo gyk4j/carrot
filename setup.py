@@ -118,7 +118,7 @@ base = "Win32GUI" if sys.platform == "win32" else None
 
 setup(
     name="Carrot 2025",
-    version="0.0.1",
+    version="0.0.1.0",
     description="Crop, Resize and Rotate",
     options={"build_exe": build_exe_options},
     executables=[
