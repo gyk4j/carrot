@@ -117,9 +117,9 @@ build_exe_options = {
 base = "Win32GUI" if sys.platform == "win32" else None
 
 setup(
-    name="carrot",
+    name="Carrot 2025",
     version="0.0.1",
-    description="carrot",
+    description="Crop, Resize and Rotate",
     options={"build_exe": build_exe_options},
     executables=[
         Executable(
@@ -127,8 +127,8 @@ setup(
             base=base,
             target_name="carrot",
             icon="res/ico/app.ico",
-            copyright="Copyright (c) 2025 gyk4j. All rights reserved.",
-            trademarks="carrot(tm)",
+            copyright="© 2025 gyk4j. All rights reserved.",
+            trademarks="carrot is a trademark of gyk4j",
         )
     ],
 )
