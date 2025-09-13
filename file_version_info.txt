@@ -34,11 +34,11 @@ VSVersionInfo(
         StringStruct('FileVersion', '0.0.1.0'),
         StringStruct('InternalName', 'carrot.exe'),
         StringStruct('LegalCopyright', '© 2025 gyk4j.  All rights reserved.'),
-        StringStruct('LegalTrademarks1', 'carrot is a trademark of gyk4j'),
-        StringStruct('LegalTrademarks2', 'carrot is a trademark of gyk4j'),
+        StringStruct('LegalTrademarks', 'carrot is a trademark of gyk4j'),        
         StringStruct('OriginalFilename', 'carrot.exe'),
         StringStruct('ProductName', 'Carrot 2025'),
-        StringStruct('ProductVersion', '0.0.1.0')])
+        StringStruct('ProductVersion', '0.0.1.0'),
+        StringStruct('Comments', '')])
       ]), 
     VarFileInfo([VarStruct('Translation', [0, 1252])])
   ]
