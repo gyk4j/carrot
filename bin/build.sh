@@ -13,7 +13,7 @@ call_pyinstaller()
     
     if [ -e dist/carrot/carrot.exe ]
     then
-        ./dist/carrot/carrot.exe
+        ./dist/carrot/carrot.exe &
     fi
 }
 
@@ -28,7 +28,7 @@ call_cx_Freeze()
     
     if [ -e build/exe.win-amd64-3.8/carrot.exe ]
     then
-        ./build/exe.win-amd64-3.8/carrot.exe
+        ./build/exe.win-amd64-3.8/carrot.exe &
     fi
 }
 

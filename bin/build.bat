@@ -10,14 +10,14 @@ goto end
 pyinstaller --noconfirm --log-level WARN pyinstaller.spec
 if ERRORLEVEL 1 goto error
 dir dist\carrot\
-if exist "dist\carrot\carrot.exe" "dist\carrot\carrot.exe"
+if exist "dist\carrot\carrot.exe" start "pyinstaller" "dist\carrot\carrot.exe"
 goto end
 
 :cx_Freeze
 py setup.py build
 if ERRORLEVEL 1 goto error
 dir build\exe.win-amd64-3.8\
-if exist "build\exe.win-amd64-3.8\carrot.exe" "build\exe.win-amd64-3.8\carrot.exe"
+if exist "build\exe.win-amd64-3.8\carrot.exe" start "cx_Freeze" "build\exe.win-amd64-3.8\carrot.exe"
 goto end
 
 :error
