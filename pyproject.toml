@@ -1,0 +1,63 @@
+[build-system]
+requires = ["setuptools >= 69.5.1"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "carrot"
+description = "Crop to Aspect Ratio, Resize  and Rotate"
+readme = "README.md"
+# license = "GPL-2.0-or-later"
+# license-files = ["LICEN[CS]E*"]
+keywords = ["image", "jpeg", "picture", "photo", "crop", "resize", "rotate", "batch", "bulk"]
+classifiers = [
+    "Development Status :: 2",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
+    "Operating System :: Microsoft :: Windows",
+    "Topic :: Multimedia :: Graphics :: Editors :: Raster-Based",
+    "Programming Language :: Python :: 3.8",
+]
+version = "0.0.1"
+requires-python = ">= 3.8"
+dependencies = [
+    "altgraph==0.17.4",
+    "build==1.2.2.post1",
+    "cffi==1.17.1",
+    "colorama==0.4.6",
+    "cx-Freeze==6.15.16",
+    "cx-Logging==3.2.0",
+    "importlib-metadata==8.5.0",
+    "lief==0.14.1",
+    "packaging==25.0",
+    "pefile==2023.2.7",
+    "pillow==10.4.0",
+    "pycparser==2.22",
+    "pyinstaller==6.13.0",
+    "pyinstaller-hooks-contrib==2025.4",
+    "pyproject-hooks==1.2.0",
+    "pyvips==3.0.0",
+    "pywin32-ctypes==0.2.3",
+    "tomli==2.2.1",
+    "zipp==3.20.2",
+]
+authors = [
+    { name = "gyk4j", email = "147011991+gyk4j@users.noreply.github.com" },
+]
+maintainers = [
+    { name = "gyk4j", email = "147011991+gyk4j@users.noreply.github.com" },
+]
+
+[project.urls]
+Homepage = "https://gyk4j.github.io/carrot/"
+Documentation = "https://gyk4j.github.io/carrot/"
+Repository = "https://github.com/gyk4j/carrot.git"
+Issues = "https://github.com/gyk4j/carrot/issues"
+Changelog = "https://github.com/gyk4j/carrot/releases"
+
+# [project.entry-points]
+
+# [project.scripts]
+# carrot-cli = "carrot:main_cli"
+
+# [project.gui-scripts]
+# carrot-gui = "carrot:main_gui"
