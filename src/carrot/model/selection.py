@@ -1,6 +1,6 @@
-from point import Point
-from aspect_ratio import AspectRatio
-from dimension import Dimension
+from .point import Point
+from .aspect_ratio import AspectRatio
+from .dimension import Dimension
 
 class Selection:
 
@@ -17,6 +17,11 @@ class Selection:
         
         self._point: Point = point
         self._factor: float = factor
+        
+    @property
+    def id(self) -> str:
+        return str.format('{:08x}{:08x}', self._crc32, self._file_size)
+        # return format(self._crc32, '08x') + format(self._file_size, '08x')
         
     @property
     def crc32(self) -> int:

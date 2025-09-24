@@ -1,6 +1,6 @@
 from typing import TypeVar, Generic, Iterable
-
-from repository import CrudRepository
+import csv
+from .repository import CrudRepository
 
 T = TypeVar('T')
 ID = TypeVar('ID')
@@ -9,6 +9,13 @@ class SelectionRepository(CrudRepository, Generic[T, ID]):
 
     def __init__(self):
         self._a = ["a", "b", "c", "d"]
+        
+    def __enter__(self):
+        print('__enter__')
+        return 'main body'
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        print('__exit__')
 
     def save(self, entity: T) -> T:
         self._a.append(entity)
@@ -24,23 +31,23 @@ class SelectionRepository(CrudRepository, Generic[T, ID]):
     def find_all(self) -> Iterable[T]:
         return self._a
 
-    def find_all_by_id(self, id: ID) -> Iterable[T]:
+    def find_all_by_id(self, oid: ID) -> Iterable[T]:
         r = []
         for e in self._a:
-            if e == id:
+            if e == oid:
                 r.append(e)
         return r
 
-    def find_by_id(self, id: ID) -> None:
-        found = self.find_all_by_id(id)
+    def find_by_id(self, oid: ID) -> None:
+        found = self.find_all_by_id(oid)
 
         if len(found) == 0:
             return None
         else:
             return found[0]
 
-    def find_one(self, id: ID) -> T:
-        found = self.find_all_by_id(id)
+    def find_one(self, oid: ID) -> T:
+        found = self.find_all_by_id(oid)
 
         if len(found) == 0:
             return None
@@ -56,38 +63,9 @@ class SelectionRepository(CrudRepository, Generic[T, ID]):
     def delete_all(self):
         self._a.clear()
 
-    def delete_by_id(self, id: ID):
-        self._a.pop(id)
+    def delete_by_id(self, oid: ID):
+        self._a.pop(oid)
 
-    def exists_by_id(self, id: ID) -> bool:
-        return id in self._a
+    def exists_by_id(self, oid: ID) -> bool:
+        return oid in self._a
 
-if __name__ == '__main__':
-    print(issubclass(SelectionRepository, CrudRepository))
-    
-    r = SelectionRepository[str,int]()
-    print(r.count())
-    
-    ns1 = "f"
-    s = r.save(ns1)
-    print(s)
-    
-    ns2 = ["g", "h"]
-    r.save_all(ns2)
-    print(r.find_all())
-    
-    print(r.exists_by_id("g"))
-
-    print(r.exists_by_id("e"))
-
-    r.delete("h")
-    print(r.find_all())
-
-    r.delete_by_id(0)
-    print(r.find_all())
-
-    r.delete_all()
-    print(r.find_all())
-    
-    print(r.count())
-    
